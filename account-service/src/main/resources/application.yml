@@ -1,0 +1,31 @@
+audit:
+    service:
+        url: http://audit-service:8082
+logging:
+    level:
+        com:
+            vmware:
+                tanzu:
+                    example:
+                        accountservice: info
+        root: 'off'
+server:
+    port: 8081
+spring:
+    jpa:
+        open-in-view: false
+    output:
+        ansi:
+            enabled: always
+
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: local
+
+audit:
+    service:
+        url: http://localhost:8082

@@ -1,29 +1,28 @@
-# simple-distributed-bank-services-demo
-
-## Overview
-
-## Try it out
-
-### Prerequisites
-
-* Prereq 1
-* Prereq 2
-* Prereq 3
-
-### Build & Run
-
-1. Step 1
-2. Step 2
-3. Step 3
-
-## Documentation
-
-## Contributing
-
-The simple-distributed-bank-services-demo project team welcomes contributions from the community. Before you start working with simple-distributed-bank-services-demo, please
-read our [Developer Certificate of Origin](https://cla.vmware.com/dco). All contributions to this repository must be
-signed as described on that page. Your signature certifies that you wrote the patch or have the right to pass it on
-as an open-source patch. For more detailed information, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## License
-
+# Simple Distributed Bank Services Demo
+## Quickstart
+1. Start Docker Engine (if necessary)
+1. Clone this repository and `cd` into the repository folder
+1. Open a new terminal and execute:
+   ```shell
+   docker-compose up account-service
+   ```
+1. Open a new terminal and launch the `audit-service`:
+   ```shell
+   SERVER_PORT=8888 ./gradlew :audit-service:bootRun
+   ```
+1. Open a new terminal and launch the  `debit-service`:
+   ```shell
+   SERVER_PORT=8889 ACCOUNT_SERVICE_URL=http://localhost:48081 AUDIT_SERVICE_URL=http://localhost:8888 ./gradlew :debit-service:bootRun
+   ```
+1. Use Postman with the `Simple Distributed Bank Services Demo => Debit Service => Purchase 8889` request provided in [this collection](simple-distributed-bank-services-demo.postman_collection.json), or, open a new terminal and execute:
+   ```shell
+   curl --verbose --location --request POST 'localhost:8889/purchase' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{ "amount": 10000 }'
+   ```
+   The response to this request should be `200 OK`.
+1. Observe the output from the `audit-service`. The service console should output:
+   ```
+   {type=DEBIT, status=SUCCESS, amount=10000}
+   {type=TRANSACTION, status=SUCCESS, amount=10000}
+   ```

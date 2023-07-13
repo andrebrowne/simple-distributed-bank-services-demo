@@ -1,0 +1,5 @@
+rootProject.name = 'simple-distributed-bank-services-demo'
+
+include 'account-service'
+include 'audit-service'
+include 'debit-service'

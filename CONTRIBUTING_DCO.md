@@ -1,7 +1,5 @@
 # Contributing to simple-distributed-bank-services-demo
 
-_NOTE: This is a template document that requires editing before it is ready to use!_
-
 We welcome contributions from the community and first want to thank you for taking the time to contribute!
 
 Please familiarize yourself with the [Code of Conduct](https://github.com/vmware/.github/blob/main/CODE_OF_CONDUCT.md) before contributing.
@@ -22,12 +20,51 @@ We welcome many different types of contributions and not all of them need a Pull
 
 ## Getting started
 
-_TO BE EDITED: This section explains how to build the project from source, including Development Environment Setup, Build, Run and Test._
+This project requires git, Java 17 (or higher) and gradle.
 
-_Provide information about how someone can find your project, get set up, build the code, test it, and submit a pull request successfully without having to ask any questions. Also include common errors people run into, or useful scripts they should run._
+This project is configured as a single gradle project with sub-projects containing 3 separate Spring Boot Applications (`account-service`, `audit-serice`, and `debit-serice`) . 
 
-_List any tests that the contributor should run / or testing processes to follow before submitting. Describe any automated and manual checks performed by reviewers._
+### Build
+To build all 3 applications at once execute:
+```shell
+./gradlew clean build
+```
 
+To build a single the application (.e.g. `account-service`) execute:
+```shell
+./gradlew :account-service:clean :account-service:build
+```
+### Run
+Each Spring Boot Application's `local` profile propoerties are configured to allow the 3 applications to comunicate with each other on ports `8081`, `8082`, and 
+`8083` on a host machine. Running all the applications, at once, can be achieved simply by executing:
+```shell
+SPRING_PROFILES_ACTIVE=local ./gradlew bootRun    
+```
+
+However, running them separately is also an option.
+To run the `account-service` open a new terminal and execute:
+```shell
+SPRING_PROFILES_ACTIVE=local ./gradlew :account-service:bootRun
+```
+To run the `audit-service` open a new terminal and execute:
+```shell
+SPRING_PROFILES_ACTIVE=local ./gradlew :audit-service:bootRun
+```
+To run the `debit-service` open a new terminal and execute:
+```shell
+SPRING_PROFILES_ACTIVE=local ./gradlew :debit-service:bootRun
+```
+
+### Test
+Each application has a test suite. Execute the following to run the tests for all 3 applications at once:
+```shell
+./gradlew test
+```
+
+To run the tests for a single application (.e.g. `audit-service`) execute:
+```shell
+./gradlew :audit-service:test
+```
 
 ## Contribution Flow
 
@@ -54,21 +91,10 @@ Before submitting your pull request, we advise you to use the following:
 
 For specifics on what to include in your report, please follow the guidelines in the issue and pull request templates when available.
 
-_TO BE EDITED: Add additional information if needed._
-
-
 ## Ask for Help
-
-_TO BE EDITED: Provide information about the channels you use to communicate (i.e. Slack, IRC, Discord, etc)_
 
 The best way to reach us with a question when contributing is to ask on:
 
 * The original GitHub issue
 * The developer mailing list
 * Our Slack channel
-
-
-## Additional Resources
-
-_Optional_
-

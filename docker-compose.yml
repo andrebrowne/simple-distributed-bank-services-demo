@@ -1,0 +1,35 @@
+services:
+  account-service:
+    image: gradle:7.6.0-jdk17
+    command: "gradle clean bootRun"
+    environment:
+      #- AUDIT_SERVICE_URL=http://audit-service:8082
+      - AUDIT_SERVICE_URL=http://host.docker.internal:8888
+      - SERVER_PORT=8081
+    ports:
+      - 48081:8081
+    working_dir: /account-service
+    volumes:
+      - ./account-service:/account-service
+  audit-service:
+    image: gradle:7.6.0-jdk17
+    command: "gradle clean bootRun"
+    environment:
+      - SERVER_PORT=8082
+    ports:
+      - 48082:8082
+    working_dir: /audit-service
+    volumes:
+      - ./audit-service:/audit-service
+  debit-service:
+    image: gradle:7.6.0-jdk17
+    command: "gradle clean bootRun"
+    environment:
+      - ACCOUNT_SERVICE_URL=http://account-service:8081
+      - AUDIT_SERVICE_URL=http://audit-service:8082
+      - SERVER_PORT=8083
+    ports:
+      - 48083:8083
+    working_dir: /debit-service
+    volumes:
+      - ./debit-service:/debit-service

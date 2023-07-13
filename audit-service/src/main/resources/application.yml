@@ -1,0 +1,23 @@
+logging:
+    level:
+        com:
+            vmware:
+                tanzu:
+                    example:
+                        auditservice: info
+        root: 'off'
+server:
+    port: 8082
+spring:
+    jpa:
+        open-in-view: false
+    output:
+        ansi:
+            enabled: always
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: local
