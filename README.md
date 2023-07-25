@@ -1,4 +1,6 @@
+![Simple Distributed Bank Services Demo](service-architecture.png "Simple Distributed Bank Services Demo Service Architecture")
 # Simple Distributed Bank Services Demo
+Visit the [Tanzu Developer Center](https://tanzu.vmware.com/developer/guides/docker-host-docker-internal-gs) for a detailed walkthrough of the usage of this pattern.
 ## Quickstart
 1. Start Docker Engine (if necessary)
 1. Clone this repository and `cd` into the repository folder
